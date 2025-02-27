@@ -3,7 +3,7 @@ require("dotenv").config()
 const bcrypt = require('bcrypt');
 const jwt=require("jsonwebtoken");
 const { UserModel } = require("../model/user.model");
-const { transporter } = require("../../mailTransporter");
+const { transporter } = require("../mailTransporter");
 const { authMiddleware } = require("../middleware/auth");
 const { TicketModel } = require("../model/ticket.model");
 const userRoute = express.Router()
