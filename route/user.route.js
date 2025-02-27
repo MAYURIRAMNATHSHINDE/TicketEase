@@ -11,7 +11,7 @@ const userRoute = express.Router()
 SALT_ROUND = Number(process.env.SALT_ROUND)
 
 
-userRoute.get("/all-user", loggerMiddleware(),async (req, res) => {
+userRoute.get("/all-user",async (req, res) => {
     try {
         const data = UserModel.find()
         res.status(200).json({ msg: "user data:", data })
@@ -20,7 +20,7 @@ userRoute.get("/all-user", loggerMiddleware(),async (req, res) => {
     }
 })
 
-userRoute.get("/user/:id", loggerMiddleware(),async (req, res) => {
+userRoute.get("/user/:id",async (req, res) => {
     try {
         id = req.params.id;
         const data = UserModel.findById({ _id: id })
@@ -30,7 +30,7 @@ userRoute.get("/user/:id", loggerMiddleware(),async (req, res) => {
     }
 })
 //////////////////////////***********  Signup  **********///////////////////////////
-userRoute.post("/signup", loggerMiddleware(),async (req, res) => {
+userRoute.post("/signup",async (req, res) => {
     try {
         const myPlaintextPassword = req.body.password;
 
@@ -51,7 +51,7 @@ userRoute.post("/signup", loggerMiddleware(),async (req, res) => {
 
 //////////////////////////***********  Login  **********///////////////////////////
 
-userRoute.post("/login", loggerMiddleware(),async (req, res) => {
+userRoute.post("/login", async (req, res) => {
     try {
       const user=await UserModel.findOne({email:req.body.email})
       if(!user){
@@ -78,7 +78,7 @@ userRoute.post("/login", loggerMiddleware(),async (req, res) => {
 
 //////////////////////////***********  Book Ticket  **********///////////////////////////
 
-userRoute.post("/book-ticket", loggerMiddleware(),authMiddleware("customer"),async (req, res) => {
+userRoute.post("/book-ticket",authMiddleware("customer"),async (req, res) => {
     try {
         userId=req.body.userId;
         const data = await TicketModel.create({...req.body,time:Date.now()});
@@ -96,7 +96,7 @@ userRoute.post("/book-ticket", loggerMiddleware(),authMiddleware("customer"),asy
 })
 
 //////////////////////////***********  Update Ticket  **********///////////////////////////
-userRoute.patch("/ticket/:userId", loggerMiddleware(),authMiddleware("customer"),async (req, res) => {
+userRoute.patch("/ticket/:userId",authMiddleware("customer"),async (req, res) => {
     try {
         userId = req.params.userId;
         const body = req.body;
@@ -107,7 +107,7 @@ userRoute.patch("/ticket/:userId", loggerMiddleware(),authMiddleware("customer")
     }
 })
 //////////////////////////***********  Delete Ticket within 24 hr  **********///////////////////////////
-userRoute.delete("/ticket/:userId",authMiddleware("customer"), loggerMiddleware(),async (req, res) => {
+userRoute.delete("/ticket/:userId",authMiddleware("customer"),async (req, res) => {
     try {
         userId = req.params.userId;
         const body = req.body;

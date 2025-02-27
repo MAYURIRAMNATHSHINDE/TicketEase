@@ -15,7 +15,7 @@ const authMiddleware=(allowedRole)=>{
             if(decoded){
                 req.body.userId=decoded.userId;
                 req.body.role=decoded.role;
-                next()
+                next();
 
             }
             else{
