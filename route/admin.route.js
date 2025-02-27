@@ -1,12 +1,13 @@
 const express=require("express");
 const { UserModel } = require("../model/user.model");
+const { loggerMiddleware } = require("../middleware/auth");
 require("dotenv").config()
 
 const adminRoute=express.Router()
 
 
 
-adminRoute.get("/all-user", async (req, res) => {
+adminRoute.get("/all-user", loggerMiddleware(),async (req, res) => {
     try {
         const data = UserModel.find()
         res.status(200).json({ msg: "user data:", data })
@@ -15,7 +16,7 @@ adminRoute.get("/all-user", async (req, res) => {
     }
 })
 
-adminRoute.get("/user/:id", async (req, res) => {
+adminRoute.get("/user/:id", loggerMiddleware(),async (req, res) => {
     try {
         id=req.params.id;
         const data = UserModel.findById({_id:id})
@@ -25,7 +26,7 @@ adminRoute.get("/user/:id", async (req, res) => {
     }
 })
 
-adminRoute.post("/add-user", async (req, res) => {
+adminRoute.post("/add-user", loggerMiddleware(),async (req, res) => {
     try {
         
         const data = UserModel.create(req.body)
@@ -36,7 +37,7 @@ adminRoute.post("/add-user", async (req, res) => {
 })
 
 
-adminRoute.patch("/user/:id", async (req, res) => {
+adminRoute.patch("/user/:id", loggerMiddleware(),async (req, res) => {
     try {
         id=req.params.id;
         const body=req.body;
@@ -47,7 +48,7 @@ adminRoute.patch("/user/:id", async (req, res) => {
     }
 })
 
-adminRoute.delete("/user/:id", async (req, res) => {
+adminRoute.delete("/user/:id",loggerMiddleware(), async (req, res) => {
     try {
         id=req.params.id;
         const body=req.body;

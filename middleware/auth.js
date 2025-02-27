@@ -1,4 +1,5 @@
 const express=require("express")
+const fs=require("fs")
 const jwt=require("jsonwebtoken");
 require("dotenv").config()
 
@@ -25,4 +26,9 @@ const authMiddleware=(allowedRole)=>{
 
 }
 
-module.exports={authMiddleware}
+const loggerMiddleware=(req,res,next)=>{
+   let reqData=`${req.method},${req.url}\n`
+   fs.appendFileSync("log.txt",reqData);
+   next()
+}
+module.exports={authMiddleware,loggerMiddleware}
