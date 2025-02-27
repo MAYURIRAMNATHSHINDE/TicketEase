@@ -27,7 +27,7 @@ const authMiddleware=(allowedRole)=>{
 }
 
 const loggerMiddleware=(req,res,next)=>{
-   let reqData=`${req.method},${req.url}\n`
+   let reqData=`[${new Date().toISOString()}] ${req.method},${req.url}\n`
    fs.appendFileSync("log.txt",reqData);
    next()
 }

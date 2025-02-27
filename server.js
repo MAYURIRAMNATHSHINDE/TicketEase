@@ -3,9 +3,13 @@ const { ConnectedToDB } = require("./config/mongo.config");
 const { userRoute } = require("./route/user.route");
 const { adminRoute } = require("./route/admin.route");
 const { loggerMiddleware } = require("./middleware/auth");
-require("dotenv").config()
 
 
+if(process.env.NODE_ENV==="test"){
+    require("dotenv").config({path:".env.testing"});
+}else{
+    require("dotenv").config()
+}
 const app=express()
 
 app.use(express.json())
