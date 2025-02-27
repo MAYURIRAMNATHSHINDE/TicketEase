@@ -11,8 +11,8 @@ afetrAll(async()=>{
     await mongoose.connection.close();
 })
 
-describe("User test routes",(=>{
-    test("Signup Test Route",()=>{
+describe("User test routes",async(req,res)=>{
+    test("Signup Test Route",async()=>{
         const res=await request(app).post("/customer/signup").send({name:"Mayuri",email:"mayuri36@gmail.com"});
         expect(res.statusCode).toBe(201);
         expect(res.body.message).toBe("user ctrated successfully")
